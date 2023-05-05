@@ -1,6 +1,6 @@
 using System;
 
-namespace Monarch.Shared.Regions
+namespace Monarch.Shared.Legacy.Regions
 {
     public class Faction
     {

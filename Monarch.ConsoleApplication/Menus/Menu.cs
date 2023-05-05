@@ -6,21 +6,26 @@ namespace Monarch.ConsoleApplication.Menus
 {
     public class Menu : IMenu
     {
-        private IOption _currentOption;
         private readonly Stack<IOption> _optionStack = new();
+        private IOption _currentOption;
+        private bool _isQuitting;
 
         public Menu(IOption rootOption) => _currentOption = rootOption;
 
         public void Present()
         {
-            var arguments = Array.Empty<string>();
+            string[] arguments = Array.Empty<string>();
 
-            while (_currentOption != null)
+            while (!_isQuitting)
             {
                 PresentOptions(arguments);
                 var input = Console.ReadLine();
                 Console.Clear();
-                arguments = ParseInput(input);
+
+                if (input != null)
+                {
+                    arguments = ParseInput(input);
+                }
             }
         }
 
@@ -58,20 +63,28 @@ namespace Monarch.ConsoleApplication.Menus
                 }
                 else if (input == "q" || input == "Q")
                 {
-                    _currentOption = null;
+                    _isQuitting = true;
                 }
                 else
                 {
                     var match = _currentOption.GetMatch(inputOption);
 
-                    if (match.Options.Any())
+                    if (match != null)
                     {
-                        _optionStack.Push(_currentOption);
-                        _currentOption = match;
+                        if (match.Options.Any())
+                        {
+                            _optionStack.Push(_currentOption);
+                            _currentOption = match;
+                        }
+                        else
+                        {
+                            match.Action(inputArguments);
+                        }
                     }
                     else
                     {
-                        match.Action(inputArguments);
+                        Console.WriteLine("Failed to parse input.");
+                        return Array.Empty<string>();
                     }
 
                     return inputArguments;

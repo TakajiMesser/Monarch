@@ -1,10 +1,10 @@
 using Monarch.Shared.Game.Boards;
+using Monarch.Shared.Game.Empires;
 using Monarch.Shared.Game.Players;
 using Monarch.Shared.Game.Players.Actions;
 using Monarch.Shared.Game.Setup;
 using Monarch.Shared.Logs;
 using Monarch.Shared.Logs.Entries;
-using Monarch.Shared.Regions;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Monarch.Shared.Game
         private readonly Board _board = new();
         private readonly List<Empire> _empires = new();
         private readonly List<Player> _players = new();
-        private Random _gameRandomizer;
+        private Random? _gameRandomizer;
 
         public int TurnIndex { get; private set; }
         public int RoundNumber { get; private set; }

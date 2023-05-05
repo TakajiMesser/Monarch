@@ -1,7 +1,7 @@
 using Monarch.Shared.Statistics;
 using Monarch.Shared.Statistics.Modifiers;
 
-namespace Monarch.Shared.Populations
+namespace Monarch.Shared.Legacy.Populations
 {
     public class WageClass : IModifiable
     {

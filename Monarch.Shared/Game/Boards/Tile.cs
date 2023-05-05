@@ -6,9 +6,9 @@ namespace Monarch.Shared.Game.Boards
 
         public Biome Biome { get; }
 
-        public ITile North { get; set; }
-        public ITile South { get; set; }
-        public ITile East { get; set; }
-        public ITile West { get; set; }
+        public ITile? North { get; set; }
+        public ITile? South { get; set; }
+        public ITile? East { get; set; }
+        public ITile? West { get; set; }
     }
 }

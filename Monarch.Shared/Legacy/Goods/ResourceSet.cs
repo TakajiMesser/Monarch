@@ -1,9 +1,9 @@
-using Monarch.Shared.Building;
+using Monarch.Shared.Legacy.Building;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Monarch.Shared.Goods
+namespace Monarch.Shared.Legacy.Goods
 {
     public class ResourceSet : IEnumerable<Resource>
     {

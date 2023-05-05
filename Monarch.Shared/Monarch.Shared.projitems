@@ -9,15 +9,17 @@
     <Import_RootNamespace>Monarch.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Budgeting\Budget.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\Formula.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\ICraftable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\ICrafter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\Multiplier.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\Recipe.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\RecipeSet.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\Structure.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Building\StructureSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Empires\Empire.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Empires\IProvince.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Budgeting\Budget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\Formula.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\ICraftable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\ICrafter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\Multiplier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\Recipe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\RecipeSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\Structure.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\StructureSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\BiomeType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Biome.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\IBoard.cs" />
@@ -28,7 +30,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Setup\IGameConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Actions\IPlayerAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Players\IPlayer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Round.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\IGameManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Goods\Category.cs" />

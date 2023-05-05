@@ -6,7 +6,7 @@ namespace Monarch.Shared.Statistics
     {
         int Value { get; set; }
 
-        event EventHandler Changed;
-        event EventHandler Depleted;
+        event EventHandler? Changed;
+        event EventHandler? Depleted;
     }
 }

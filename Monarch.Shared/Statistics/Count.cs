@@ -27,7 +27,7 @@ namespace Monarch.Shared.Statistics
             }
         }
 
-        public event EventHandler Changed;
-        public event EventHandler Depleted;
+        public event EventHandler? Changed;
+        public event EventHandler? Depleted;
     }
 }

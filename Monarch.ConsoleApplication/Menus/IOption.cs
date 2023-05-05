@@ -12,7 +12,7 @@ namespace Monarch.ConsoleApplication.Menus
         IList<IOption> Options { get; }
 
         bool IsMatch(string key);
-        IOption GetMatch(string key);
+        IOption? GetMatch(string key);
         void Present();
         void Select(IList<string> arguments);
     }

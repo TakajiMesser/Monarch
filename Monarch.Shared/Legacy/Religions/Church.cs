@@ -1,7 +1,7 @@
 using Monarch.Shared.Statistics;
 using Monarch.Shared.Statistics.Modifiers;
 
-namespace Monarch.Shared.Goods
+namespace Monarch.Shared.Legacy.Religion
 {
     public class Church : IModifiable
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Monarch.Shared.Goods
+namespace Monarch.Shared.Legacy.Goods
 {
     public enum Categories
     {

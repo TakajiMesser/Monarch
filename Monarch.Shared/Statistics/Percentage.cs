@@ -33,8 +33,8 @@ namespace Monarch.Shared.Statistics
             }
         }
 
-        public event EventHandler Changed;
-        public event EventHandler Depleted;
-        public event EventHandler Maxed;
+        public event EventHandler? Changed;
+        public event EventHandler? Depleted;
+        public event EventHandler? Maxed;
     }
 }

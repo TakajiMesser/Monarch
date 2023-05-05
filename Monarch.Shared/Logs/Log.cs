@@ -10,7 +10,7 @@ namespace Monarch.Shared.Logs
 
         public int EntryCount => _entries.Count;
 
-        public event EventHandler<LogEntryArgs> EntriesAdded;
+        public event EventHandler<LogEntryArgs>? EntriesAdded;
 
         public void AddEntry(IEntry entry)
         {

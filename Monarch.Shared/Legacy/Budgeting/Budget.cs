@@ -1,6 +1,6 @@
 using System;
 
-namespace Monarch.Shared.Budgeting
+namespace Monarch.Shared.Legacy.Budgeting
 {
     public class Budget
     {

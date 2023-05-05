@@ -1,8 +1,7 @@
-using System;
-using Monarch.Shared.Building;
+using Monarch.Shared.Legacy.Building;
 using Monarch.Shared.Statistics;
 
-namespace Monarch.Shared.Goods
+namespace Monarch.Shared.Legacy.Goods
 {
     public class Resource : ICraftable
     {

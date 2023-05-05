@@ -1,6 +1,6 @@
 using System;
 
-namespace Monarch.Shared.Building
+namespace Monarch.Shared.Legacy.Building
 {
     public interface ICraftable
     {

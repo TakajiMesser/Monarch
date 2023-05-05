@@ -1,8 +1,8 @@
-using Monarch.Shared.Goods;
+using Monarch.Shared.Legacy.Goods;
 using Monarch.Shared.Statistics;
 using System.Collections.Generic;
 
-namespace Monarch.Shared.Regions
+namespace Monarch.Shared.Legacy.Regions
 {
     public enum BiomeType
     {

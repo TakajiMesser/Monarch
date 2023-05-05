@@ -1,7 +1,7 @@
 using Monarch.Shared.Statistics;
 using System;
 
-namespace Monarch.Shared.Populations
+namespace Monarch.Shared.Legacy.Populations
 {
     public class Population
     {

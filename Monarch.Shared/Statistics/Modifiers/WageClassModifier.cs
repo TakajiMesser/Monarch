@@ -1,5 +1,5 @@
+using Monarch.Shared.Legacy.Populations;
 using System;
-using Monarch.Shared.Populations;
 
 namespace Monarch.Shared.Statistics.Modifiers
 {

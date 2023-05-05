@@ -1,5 +1,4 @@
-using Monarch.Shared.Goods;
-using Monarch.Shared.Populations;
+using Monarch.Shared.Legacy.Religion;
 using System;
 
 namespace Monarch.Shared.Statistics.Modifiers

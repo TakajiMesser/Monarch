@@ -6,8 +6,8 @@ namespace Monarch.Shared.Statistics.Modifiers
     {
         int Value { get; set; }
 
-        event EventHandler Changed;
-        event EventHandler Depleted;
+        event EventHandler? Changed;
+        event EventHandler? Depleted;
 
         void ApplyTo(IModifiable modifiable);
     }

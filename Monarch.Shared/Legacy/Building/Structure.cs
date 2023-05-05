@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Monarch.Shared.Statistics;
 using Monarch.Shared.Statistics.Modifiers;
 
-namespace Monarch.Shared.Building
+namespace Monarch.Shared.Legacy.Building
 {
     /// <summary>
     /// Structures can serve a number of uses

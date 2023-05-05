@@ -28,7 +28,7 @@ namespace Monarch.ConsoleApplication.Menus
         public IList<IOption> Options { get; }
 
         public bool IsMatch(string key) => string.Compare(Key, key, true) == 0;
-        public IOption GetMatch(string key) => Options.FirstOrDefault(c => c.IsMatch(key));
+        public IOption? GetMatch(string key) => Options.FirstOrDefault(c => c.IsMatch(key));
 
         public void Present()
         {

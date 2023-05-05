@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>939574cb-250a-4cba-96ff-4749d4e06ae9</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Monarch.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Budgeting\Budget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\Formula.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\ICraftable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\ICrafter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\Multiplier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\Recipe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\RecipeSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\Structure.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Building\StructureSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\BiomeType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Biome.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\IBoard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\ITile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Empires\IEmpire.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Actions\PlayerAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Setup\IGameConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Actions\IPlayerAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\IPlayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Round.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\IGameManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Goods\Category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Goods\Resource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Goods\ResourceSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Setup\GameConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\PlayerType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\RoundPhase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Regions\Tile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\PhaseEntered.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\RoundEnd.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\TurnEnd.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\ActionTaken.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\TurnStart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\RoundStart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\LogEntryArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\IEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Log.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\ILog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Populations\Population.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Populations\WageClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Regions\Biome.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Regions\Empire.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Regions\Faction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Regions\Province.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Tile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Board.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legacy\Religions\Church.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\Count.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\IStatistic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\IModifiable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\IModifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\Modifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\ReligionModifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\WageClassModifier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Statistics\Percentage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Units\IUnit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumerableUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Diplomacy\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Game\Setup\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Military\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Organizations\" />
+  </ItemGroup>
+</Project>

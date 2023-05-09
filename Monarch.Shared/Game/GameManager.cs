@@ -1,10 +1,11 @@
+using Monarch.Shared.Game.Actions;
 using Monarch.Shared.Game.Boards;
-using Monarch.Shared.Game.Empires;
-using Monarch.Shared.Game.Players;
-using Monarch.Shared.Game.Players.Actions;
+using Monarch.Shared.Game.Phases;
 using Monarch.Shared.Game.Setup;
 using Monarch.Shared.Logs;
 using Monarch.Shared.Logs.Entries;
+using Monarch.Shared.Models.Empires;
+using Monarch.Shared.Models.Players;
 using System;
 using System.Collections.Generic;
 
@@ -18,12 +19,11 @@ namespace Monarch.Shared.Game
         private readonly List<Player> _players = new();
         private Random? _gameRandomizer;
 
-        public int TurnIndex { get; private set; }
+        public GamePhase GamePhase { get; private set; }
+        public RoundPhase RoundPhase { get; private set; }
         public int RoundNumber { get; private set; }
+        public int PlayerTurn { get; private set; }
         public int PlayerCount { get; private set; }
-
-        public GameState State { get; private set; }
-        public RoundPhase Phase { get; private set; }
         public ILog Log => _log;
         public IBoard Board => _board;
 
@@ -31,6 +31,8 @@ namespace Monarch.Shared.Game
 
         public void SetUp(IGameConfig config)
         {
+            PlayerCount = config.PlayerCount;
+
             var layoutRandomizer = new Random(config.LayoutSeed);
             _board.SetUp(config.TileRows, config.TileColumns, layoutRandomizer);
 
@@ -39,23 +41,23 @@ namespace Monarch.Shared.Game
 
             for (var i = 0; i < config.PlayerCount; i++)
             {
-                var player = new Player(i, "Name", i == 0 ? PlayerType.Human : PlayerType.AI);
-                var empire = new Empire();
+                var empire = new Empire(i, "Name");
+                var player = new Player(i, i, "Name", i == 0 ? PlayerType.Human : PlayerType.AI, empire);
 
                 _players.Add(player);
                 _empires.Add(empire);
             }
 
-            State = GameState.SetUp;
+            GamePhase = GamePhase.SetUp;
         }
 
         public void Start()
         {
-            if (State != GameState.SetUp) throw new InvalidOperationException("Cannot start while state is " + State);
-            State = GameState.Processing;
-            TurnIndex = 0;
+            if (GamePhase != GamePhase.SetUp) throw new InvalidOperationException("Cannot start while state is " + GamePhase);
+            GamePhase = GamePhase.Processing;
             RoundNumber = 1;
-            Phase = RoundPhase.Action;
+            PlayerTurn = 0;
+            RoundPhase = RoundPhase.Action;
             _log.AddEntry(new RoundStart(RoundNumber));
             Process();
         }
@@ -63,29 +65,29 @@ namespace Monarch.Shared.Game
         public void TakeAction(IPlayerAction action)
         {
             // TODO - Also check current phase?
-            if (State != GameState.Waiting) throw new InvalidOperationException("Cannot take action while state is " + State);
-            State = GameState.Processing;
+            if (GamePhase != GamePhase.Waiting) throw new InvalidOperationException("Cannot take action while state is " + GamePhase);
+            GamePhase = GamePhase.Processing;
             // TODO - Handle player actions and add to game log
-            _log.AddEntry(new ActionTaken(TurnIndex, action));
+            _log.AddEntry(new ActionTaken(PlayerTurn, action));
             Process();
         }
 
         public void EndTurn()
         {
             // TODO - Also check current phase?
-            if (State != GameState.Waiting) throw new InvalidOperationException("Cannot end turn while state is " + State);
-            State = GameState.Processing;
+            if (GamePhase != GamePhase.Waiting) throw new InvalidOperationException("Cannot end turn while state is " + GamePhase);
+            GamePhase = GamePhase.Processing;
             IncrementTurn();
             Process();
         }
 
         private void Process()
         {
-            while (State == GameState.Processing)
+            while (GamePhase == GamePhase.Processing)
             {
-                if (HandlePhase(Phase))
+                if (HandlePhase(RoundPhase))
                 {
-                    if (Phase.IsLast())
+                    if (RoundPhase.IsLast())
                     {
                         IncrementRound();
                     }
@@ -96,7 +98,7 @@ namespace Monarch.Shared.Game
                 }
                 else
                 {
-                    State = GameState.Waiting;
+                    GamePhase = GamePhase.Waiting;
                     return;
                 }
             }
@@ -114,10 +116,10 @@ namespace Monarch.Shared.Game
 
         private bool HandleActionPhase()
         {
-            while (TurnIndex < _players.Count)
+            while (PlayerTurn < PlayerCount)
             {
                 // Check if the next player is a human or AI, and handle accordingly
-                var player = _players[TurnIndex];
+                var player = _players[PlayerTurn];
 
                 if (HandlePlayerTurn(player))
                 {
@@ -149,9 +151,9 @@ namespace Monarch.Shared.Game
         {
             foreach (var empire in _empires)
             {
-                foreach (var province in empire.Provinces)
+                foreach (var settlement in empire.Settlements)
                 {
-                    province.ApplyStructureModifiers();
+                    settlement.ApplyStructureModifiers();
                 }
             }
 
@@ -162,9 +164,9 @@ namespace Monarch.Shared.Game
         {
             foreach (var empire in _empires)
             {
-                foreach (var province in empire.Provinces)
+                foreach (var settlement in empire.Settlements)
                 {
-                    province.UpdatePopulation();
+                    settlement.UpdatePopulation();
                 }
             }
 
@@ -179,7 +181,7 @@ namespace Monarch.Shared.Game
         private void IncrementRound()
         {
             IncrementPhase();
-            TurnIndex = 0;
+            PlayerTurn = 0;
             _log.AddEntry(new RoundEnd(RoundNumber));
             RoundNumber++;
             _log.AddEntry(new RoundStart(RoundNumber));
@@ -187,15 +189,15 @@ namespace Monarch.Shared.Game
 
         private void IncrementPhase()
         {
-            Phase = Phase.Next();
-            _log.AddEntry(new PhaseEntered(Phase));
+            RoundPhase = RoundPhase.Next();
+            _log.AddEntry(new PhaseEntered(RoundPhase));
         }
 
         private void IncrementTurn()
         {
-            _log.AddEntry(new TurnEnd(TurnIndex));
-            TurnIndex++;
-            _log.AddEntry(new TurnStart(TurnIndex));
+            _log.AddEntry(new TurnEnd(PlayerTurn));
+            PlayerTurn++;
+            _log.AddEntry(new TurnStart(PlayerTurn));
         }
 
         private bool HandlePlayerTurn(Player player) => player.PlayerType switch

@@ -1,11 +1,15 @@
+using Monarch.Shared.Game.Boards;
+using Monarch.Shared.Game.Phases;
+using System;
+
 namespace Monarch.Shared.Game
 {
-    public enum GameState
+    public class GameState : IGameState
     {
-        Blank,
-        SetUp,
-        Processing,
-        Waiting,
-        Over
+        public RoundPhase RoundPhase { get; set; }
+        public int RoundNumber { get; set; }
+        public int PlayerTurn { get; set; }
+        public Board Board { get; } = new();
+        public Random? GameRandomizer { get; set; }
     }
 }

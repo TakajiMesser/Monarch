@@ -1,4 +1,4 @@
-﻿using Monarch.Shared.Game;
+﻿using Monarch.Shared.Game.Phases;
 
 namespace Monarch.Shared.Logs.Entries
 {

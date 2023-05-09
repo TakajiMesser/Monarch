@@ -1,6 +1,6 @@
 ﻿using Monarch.ConsoleApplication.Games;
 using Monarch.Shared.Game;
-using Monarch.Shared.Game.Players.Actions;
+using Monarch.Shared.Game.Actions;
 using System;
 using System.Collections.Generic;
 
@@ -33,10 +33,10 @@ namespace Monarch.ConsoleApplication.Menus.Screens
             }
 
             Console.WriteLine(IMenu.LINE);
-            Console.WriteLine("State: " + _game.State);
-            Console.WriteLine("Phase: " + _game.Phase);
-            Console.WriteLine("Round: " + _game.RoundNumber);
-            Console.WriteLine("Turn: " + _game.TurnIndex);
+            Console.WriteLine("Game Phase: " + _game.GamePhase);
+            Console.WriteLine("Round Phase: " + _game.RoundPhase);
+            Console.WriteLine("Round Number: " + _game.RoundNumber);
+            Console.WriteLine("Player Turn: " + _game.PlayerTurn);
         };
 
         protected override IOption[] Options => new IOption[]

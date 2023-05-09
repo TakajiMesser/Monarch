@@ -34,7 +34,7 @@ namespace Monarch.ConsoleApplication.Menus.Screens
             builder.AppendLine("Row: " + row);
             builder.AppendLine("Column: " + column);
 
-            var tile = _game.Board.GetTile(row, column);
+            var tile = _game.Board.GetTile(new Coordinates(row, column));
             builder.Append("Biome: " + GetBiomeCode(tile.Biome.BiomeType));
 
             Console.WriteLine(builder.ToString());

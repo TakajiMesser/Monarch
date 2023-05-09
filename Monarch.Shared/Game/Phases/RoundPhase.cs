@@ -1,6 +1,6 @@
 using System;
 
-namespace Monarch.Shared.Game
+namespace Monarch.Shared.Game.Phases
 {
     public enum RoundPhase
     {

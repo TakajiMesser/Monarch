@@ -9,8 +9,40 @@
     <Import_RootNamespace>Monarch.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Empires\Empire.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Empires\IProvince.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Entities\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Entities\Empire.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Entities\ICoordinate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Entities\IEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Entities\Route.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Entities\Settlement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Entities\Unit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Specifications\ISpecification.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Actions\GameActionCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Actions\IPlayerAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Actions\IGameAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\IGameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\IGameLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\IGameManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Coordinates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Direction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Empires\Empire.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Settlements\SettlementType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Settlements\Settlement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Settlements\ISettlement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Phases\IPhase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Phases\ActionPhase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Phases\Phase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Resources\Wheat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Resources\Resource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Resources\IResource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Structures\Structure.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Structures\IStructure.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Units\Unit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Units\IUnit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Budgeting\Budget.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\Formula.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Building\ICraftable.cs" />
@@ -24,21 +56,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Biome.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\IBoard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\ITile.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Empires\IEmpire.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\GameState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Actions\PlayerAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Empires\IEmpire.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Phases\GamePhase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Setup\IGameConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Actions\IPlayerAction.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\IPlayer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\IGameManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Players\IPlayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\IGameController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Players\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Goods\Category.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Goods\Resource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Goods\ResourceSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Setup\GameConfig.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Players\PlayerType.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\RoundPhase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\GameManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Players\PlayerType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Phases\RoundPhase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Regions\Tile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\PhaseEntered.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\RoundEnd.cs" />
@@ -59,6 +89,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Tile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Boards\Board.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Religions\Church.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\UnitRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\SettlementRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\PlayerRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\ISettlementRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\ModelList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\DataList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\IPlayerRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\IEmpireRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\Repository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\IRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\EmpireRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\IUnitRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Statistics\Count.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Statistics\IStatistic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\IModifiable.cs" />
@@ -67,13 +109,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\ReligionModifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Statistics\Modifiers\WageClassModifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Statistics\Percentage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Units\IUnit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\EnumerableUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Diplomacy\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Legacy\Diplomacy\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Building\" />
     <Folder Include="$(MSBuildThisFileDirectory)Game\Setup\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Military\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Organizations\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Legacy\Military\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Legacy\Organizations\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Settlements\" />
   </ItemGroup>
 </Project>

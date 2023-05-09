@@ -1,19 +1,19 @@
+using Monarch.Shared.Game.Actions;
 using Monarch.Shared.Game.Boards;
-using Monarch.Shared.Game.Players;
-using Monarch.Shared.Game.Players.Actions;
+using Monarch.Shared.Game.Phases;
 using Monarch.Shared.Game.Setup;
 using Monarch.Shared.Logs;
+using Monarch.Shared.Models.Players;
 
 namespace Monarch.Shared.Game
 {
     public interface IGameManager
     {
-        int TurnIndex { get; }
+        GamePhase GamePhase { get; }
+        RoundPhase RoundPhase { get; }
         int RoundNumber { get; }
+        int PlayerTurn { get; }
         int PlayerCount { get; }
-
-        GameState State { get; }
-        RoundPhase Phase { get; }
         ILog Log { get; }
         IBoard Board { get; }
 

@@ -2,7 +2,7 @@ using Monarch.Shared.Statistics;
 
 namespace Monarch.Shared.Game.Boards
 {
-    public class Biome
+    public struct Biome
     {
         public Biome(BiomeType type, int strength)
         {

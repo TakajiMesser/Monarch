@@ -5,6 +5,6 @@ namespace Monarch.Shared.Game.Boards
         int RowCount { get; }
         int ColumnCount { get; }
 
-        ITile GetTile(int rowIndex, int columnIndex);
+        ITile? GetTile(Coordinates coordinates);
     }
 }

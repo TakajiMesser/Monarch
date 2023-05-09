@@ -10,7 +10,7 @@ namespace Monarch.Shared.Game.Boards
         public int RowCount { get; private set; }
         public int ColumnCount { get; private set; }
 
-        public ITile GetTile(int rowIndex, int columnIndex) => _tiles[rowIndex * ColumnCount + columnIndex];
+        public ITile? GetTile(Coordinates coordinates) => _tiles[coordinates.Row * ColumnCount + coordinates.Column];
 
         public void SetUp(int nRows, int nColumns, Random randomizer)
         {
@@ -31,16 +31,16 @@ namespace Monarch.Shared.Game.Boards
                     {
                         var northTile = _tiles[(r - 1) * nColumns + c];
 
-                        tile.North = northTile;
-                        northTile.South = tile;
+                        tile.SetTile(Direction.North, northTile);
+                        northTile.SetTile(Direction.South, tile);
                     }
 
                     if (c > 0)
                     {
                         var westTile = _tiles[r * nColumns + c - 1];
 
-                        tile.West = westTile;
-                        westTile.East = tile;
+                        tile.SetTile(Direction.West, westTile);
+                        westTile.SetTile(Direction.East, tile);
                     }
 
                     _tiles.Add(tile);

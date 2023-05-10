@@ -11,7 +11,7 @@ namespace Monarch.Shared.Repositories
 
         public void InsertOrUpdate(TModel model)
         {
-            if (model.ID <= _models.Count)
+            if (model.ID < _models.Count)
             {
                 _models[model.ID - 1] = model;
             }

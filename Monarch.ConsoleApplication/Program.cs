@@ -1,44 +1,64 @@
-﻿using Monarch.ConsoleApplication.Games;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Monarch.ConsoleApplication.Games;
 using Monarch.ConsoleApplication.Menus;
 using Monarch.ConsoleApplication.Menus.Screens;
 using Monarch.Shared.Game;
 using Monarch.Shared.Game.Setup;
-using System;
+using Monarch.Shared.Repositories;
 
-namespace Monarch.ConsoleApplication
-{
-    class Program
+Console.WriteLine("Welcome!");
+
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices(services =>
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Welcome!");
+        //services.AddHostedService<GameService>();
+        services.AddSingleton<IGameManager, GameManager>();
 
-            var gameManager = InitializeGame();
-            var gameLog = new GameLog();
+        services.AddScoped<IEmpireRepository, EmpireRepository>();
+        services.AddScoped<IPlayerRepository, PlayerRepository>();
+        services.AddScoped<ISettlementRepository, SettlementRepository>();
+        services.AddScoped<IUnitRepository, UnitRepository>();
+    })
+    .Build();
 
-            var mainScreen = new MainScreen(gameManager, gameLog);
-            var menuStack = new Menu(mainScreen.Option);
-            menuStack.Present();
+await host.StartAsync();
 
-            Console.WriteLine("Exiting...");
-        }
+//var gameManager = InitializeGame();
+var gameManager = host.Services.GetService<IGameManager>();
+var gameLog = new GameLog();
 
-        private static IGameManager InitializeGame()
-        {
-            var seedRandomizer = new Random();
-            var config = new GameConfig()
-            {
-                LayoutSeed = seedRandomizer.Next(),
-                GameSeed = seedRandomizer.Next(),
-                PlayerCount = 3,
-                TileRows = 10,
-                TileColumns = 10
-            };
+var seedRandomizer = new Random();
+gameManager!.SetUp(new GameConfig()
+{
+    LayoutSeed = seedRandomizer.Next(),
+    GameSeed = seedRandomizer.Next(),
+    PlayerCount = 3,
+    TileRows = 10,
+    TileColumns = 10
+});
 
-            var manager = new GameManager();
-            manager.SetUp(config);
+var mainScreen = new MainScreen(gameManager!, gameLog!);
+var menuStack = new Menu(mainScreen.Option);
+menuStack.Present();
 
-            return manager;
-        }
-    }
-}
+Console.WriteLine("Exiting...");
+await host.StopAsync();
+
+/*private static IGameManager InitializeGame()
+{
+    var seedRandomizer = new Random();
+    var config = new GameConfig()
+    {
+        LayoutSeed = seedRandomizer.Next(),
+        GameSeed = seedRandomizer.Next(),
+        PlayerCount = 3,
+        TileRows = 10,
+        TileColumns = 10
+    };
+
+    var manager = new GameManager();
+    manager.SetUp(config);
+
+    return manager;
+}*/

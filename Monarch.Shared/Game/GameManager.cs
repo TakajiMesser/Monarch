@@ -6,13 +6,14 @@ using Monarch.Shared.Logs;
 using Monarch.Shared.Logs.Entries;
 using Monarch.Shared.Models.Empires;
 using Monarch.Shared.Models.Players;
-using System;
-using System.Collections.Generic;
+using Monarch.Shared.Repositories;
 
 namespace Monarch.Shared.Game
 {
     public class GameManager : IGameManager
     {
+        private readonly IEmpireRepository _empireRepository;
+
         private readonly Log _log = new();
         private readonly Board _board = new();
         private readonly List<Empire> _empires = new();
@@ -26,6 +27,11 @@ namespace Monarch.Shared.Game
         public int PlayerCount { get; private set; }
         public ILog Log => _log;
         public IBoard Board => _board;
+
+        public GameManager(IEmpireRepository empireRepository)
+        {
+            _empireRepository = empireRepository;
+        }
 
         public IPlayer GetPlayer(int index) => _players[index];
 
@@ -46,6 +52,7 @@ namespace Monarch.Shared.Game
 
                 _players.Add(player);
                 _empires.Add(empire);
+                _empireRepository.InsertOrUpdate(empire);
             }
 
             GamePhase = GamePhase.SetUp;

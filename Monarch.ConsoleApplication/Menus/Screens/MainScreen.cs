@@ -1,8 +1,6 @@
 ﻿using Monarch.ConsoleApplication.Games;
 using Monarch.Shared.Game;
 using Monarch.Shared.Game.Actions;
-using System;
-using System.Collections.Generic;
 
 namespace Monarch.ConsoleApplication.Menus.Screens
 {

@@ -33,7 +33,7 @@ namespace Monarch.Shared.Game
             _empireRepository = empireRepository;
         }
 
-        public IPlayer GetPlayer(int index) => _players[index];
+        public IPlayer GetPlayer(int id) => _players[id];
 
         public void SetUp(IGameConfig config)
         {
@@ -197,7 +197,7 @@ namespace Monarch.Shared.Game
         private void IncrementPhase()
         {
             RoundPhase = RoundPhase.Next();
-            _log.AddEntry(new PhaseEntered(RoundPhase));
+            _log.AddEntry(new RoundPhaseEntered(RoundPhase));
         }
 
         private void IncrementTurn()

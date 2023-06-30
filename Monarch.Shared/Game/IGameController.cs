@@ -1,6 +1,4 @@
 using Monarch.Shared.Game.Actions;
-using Monarch.Shared.Game.Phases;
-using Monarch.Shared.Game.Setup;
 
 namespace Monarch.Shared.Game
 {
@@ -14,11 +12,8 @@ namespace Monarch.Shared.Game
     /// </summary>
     public interface IGameController
     {
-        RoundPhase RoundPhase { get; }
-        int RoundNumber { get; }
-        int PlayerTurn { get; }
+        IGameState State { get; }
 
-        void SetUp(IGameConfig config);
         void ProcessAction(IGameAction action);
     }
 }

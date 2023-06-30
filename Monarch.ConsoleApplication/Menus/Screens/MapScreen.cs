@@ -1,22 +1,14 @@
-﻿using Monarch.ConsoleApplication.Games;
-using Monarch.Shared.Game;
+﻿using Monarch.Shared.Game;
 using Monarch.Shared.Game.Boards;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Monarch.ConsoleApplication.Menus.Screens
 {
-    public class MapScreen : GameScreen
+    public class MapScreen : Screen
     {
         private TileScreen _tileScreen;
 
-        public MapScreen(IGameManager game, ILog log) : base(game, log)
-        {
-            _tileScreen = new(game, log);
-
-            InitializeOption();
-        }
+        public MapScreen(IGameManager game) : base(game) => _tileScreen = new(game);
 
         protected override string Key => "M";
 
@@ -79,7 +71,7 @@ namespace Monarch.ConsoleApplication.Menus.Screens
 
         protected override IOption[] Options => new IOption[]
         {
-            _tileScreen.Option,
+            _tileScreen.AsOption(),
         };
     }
 }

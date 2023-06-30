@@ -1,17 +1,11 @@
-﻿using Monarch.ConsoleApplication.Games;
-using Monarch.Shared.Game;
-using System;
-using System.Collections.Generic;
+﻿using Monarch.Shared.Game;
 using System.Text;
 
 namespace Monarch.ConsoleApplication.Menus.Screens
 {
-    public class EmpireScreen : GameScreen
+    public class EmpireScreen : Screen
     {
-        public EmpireScreen(IGameManager game, ILog log) : base(game, log)
-        {
-            InitializeOption();
-        }
+        public EmpireScreen(IGameManager game) : base(game) { }
 
         protected override string Key => "E";
         protected override string Description => "View Empire";

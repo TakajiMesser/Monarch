@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monarch.ConsoleApplication.Games
+namespace Monarch.Engine.Rendering
 {
-    public interface ILog
+    public interface IRenderable
     {
-        void Output();
+
     }
 }

@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Actions\IPlayerAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Actions\IGameAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\IGameState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameState.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Phases\RoundPhase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Legacy\Regions\Tile.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\PhaseEntered.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\RoundPhaseEntered.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\RoundEnd.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\TurnEnd.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logs\Entries\ActionTaken.cs" />

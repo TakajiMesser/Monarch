@@ -1,5 +1,4 @@
 ﻿using Monarch.Shared.Models;
-using System.Collections.Generic;
 
 namespace Monarch.Shared.Repositories
 {
@@ -7,7 +6,11 @@ namespace Monarch.Shared.Repositories
     {
         private readonly List<TModel> _models = new();
 
+        public IEnumerable<int> GetIDs() => _models.Select(m => m.ID);
+
         public TModel Get(int id) => _models[id - 1];
+
+        public TModel? GetOrDefault(int id) => id <= _models.Count ? Get(id) : default;
 
         public void InsertOrUpdate(TModel model)
         {

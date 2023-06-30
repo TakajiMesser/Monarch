@@ -2,9 +2,9 @@
 
 namespace Monarch.Shared.Logs.Entries
 {
-    public class PhaseEntered : IEntry
+    public class RoundPhaseEntered : IEntry
     {
-        public PhaseEntered(RoundPhase phase) => Phase = phase;
+        public RoundPhaseEntered(RoundPhase phase) => Phase = phase;
 
         public RoundPhase Phase { get; }
         public string Text => "Entered " + Phase + " phase.";

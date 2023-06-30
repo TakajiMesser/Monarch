@@ -17,7 +17,7 @@ namespace Monarch.Shared.Game
         ILog Log { get; }
         IBoard Board { get; }
 
-        IPlayer GetPlayer(int index);
+        IPlayer GetPlayer(int id);
 
         void SetUp(IGameConfig config);
         void Start();

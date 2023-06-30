@@ -1,15 +1,15 @@
 using Monarch.Shared.Game.Boards;
 using Monarch.Shared.Game.Phases;
-using System;
 
 namespace Monarch.Shared.Game
 {
     public interface IGameState
     {
-        RoundPhase RoundPhase { get; set; }
-        int RoundNumber { get; set; }
-        int PlayerTurn { get; set; }
+        RoundPhase RoundPhase { get; }
+        int RoundNumber { get; }
+        int PlayerCount { get; }
+        int PlayerTurn { get; }
         Board Board { get; }
-        Random? GameRandomizer { get; set; }
+        Random? GameRandomizer { get; }
     }
 }

@@ -10,6 +10,7 @@ namespace Monarch.Shared.Game
     /// </summary>
     public interface IGameLogger
     {
-        void LogAction(IGameAction action);
+        void PreLogAction(IGameState state, IGameAction action);
+        void PostLogAction(IGameState state, IGameAction action);
     }
 }

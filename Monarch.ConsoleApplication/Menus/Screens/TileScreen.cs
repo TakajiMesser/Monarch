@@ -1,18 +1,12 @@
-﻿using Monarch.ConsoleApplication.Games;
-using Monarch.Shared.Game;
+﻿using Monarch.Shared.Game;
 using Monarch.Shared.Game.Boards;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Monarch.ConsoleApplication.Menus.Screens
 {
-    public class TileScreen : GameScreen
+    public class TileScreen : Screen
     {
-        public TileScreen(IGameManager game, ILog log) : base(game, log)
-        {
-            InitializeOption();
-        }
+        public TileScreen(IGameManager game) : base(game) { }
 
         protected override string Key => "T";
 

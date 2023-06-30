@@ -1,0 +1,56 @@
+Mechanics
+
+Monarch (King/Queen)
+
+Randomized Seeded Elements
+    - Neighboring regions/sea
+    - Natural resources
+
+Statistics (Numeric/Percentage)
+    - Societal Approval
+    - Church Approval
+    - Neighbor Approval
+    - Population
+
+Resources
+    - Lumber/Timber
+    - Wheat
+    - Furs
+    - Indigo dye
+    - Cotton/Wool/Silk/Textiles/Fibers
+    - Tobacco
+    - Rum/Whiskey
+
+Mine Resources
+    - Iron
+    - Copper
+    - Coal
+
+Food Resources
+    - Fish
+    - Corn
+    - Livestock
+    - Sugar
+
+Monthly Spending
+    - Welfare
+    - Education
+    - 
+    - Develop army
+    - Develop navy
+    - Sea voyage
+
+Monthly Income
+    - Adjustable tax rate
+    - Trade
+
+Tobacco £766,000
+Flour £410,000
+Rice £312,000
+Fish £154,000
+Wheat £115,000
+Indigo £113,000
+Corn £83,000
+Pine Boards £70,000
+Staves and Headings £65,000
+Horses £60,000

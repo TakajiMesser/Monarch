@@ -1,0 +1,41 @@
+{
+    "Biomes": [
+        {
+            "Name": "Plains",
+            "Resources": [
+                "Wheat"
+            ]
+        }
+    ],
+    "Resources": [
+        {
+            "Name": "Lumber",
+            "Value": 100
+        }
+    ],
+    "Structures": [
+        {
+            "Name": "Factory",
+            "Cost": [
+                {
+                    "ResourceName": "Lumber",
+                    "Amount": 500
+                },
+                {
+                    "ResourceName": "Brick",
+                    "Amount": 500
+                },
+                {
+                    "ResourceName": "Coal",
+                    "Amount": 300
+                }
+            ],
+            "Multipliers": [
+                {
+                    "ResourceName": "Lumber",
+                    "Amount": 150
+                }
+            ]
+        }
+    ]
+}

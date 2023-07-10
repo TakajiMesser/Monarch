@@ -70,11 +70,7 @@ namespace Monarch.Engine.Rendering.Renderers
         public void SetVertex(float x, float y, float z)
         {
             _vertexBuffer!.Clear();
-            _vertexBuffer!.AddVertex(
-                new Vertex3D(
-                    position: new Vector3f(x, y, z)
-                    )
-                );
+            _vertexBuffer!.AddVertex(new Vertex3D(new Vector3f(x, y, z)));
         }
 
         public void Render(GL gl)

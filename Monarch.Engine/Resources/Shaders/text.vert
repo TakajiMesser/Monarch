@@ -2,20 +2,19 @@
 
 uniform vec2 halfResolution;
 
-in vec2 vPosition;
-in vec2 vUV;
+layout(location = 0) in vec2 vPosition;
+layout(location = 1) in vec2 vUV;
+layout(location = 2) in vec4 vTextColor;
 
-out vec2 fUV;
+layout(location = 0) out vec2 fUV;
+layout(location = 1) out vec4 fTextColor;
 
 void main()
 {
     float x = (vPosition.x - halfResolution.x) / halfResolution.x;
 	float y = (halfResolution.y - vPosition.y) / halfResolution.y;
-    //float y = (vPosition.y - halfResolution.y) / halfResolution.y;
 
 	gl_Position = vec4(x, y, 0.0, 1.0);
-
-    //vec2 clipSpacePosition = vPosition - vec2();
-    //gl_Position = vec4((vPosition - halfResolution) / halfResolution, 0.0, 1.0);
     fUV = vUV;
+	fTextColor = vTextColor;
 }

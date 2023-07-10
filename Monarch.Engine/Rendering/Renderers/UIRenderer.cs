@@ -48,8 +48,26 @@ namespace Monarch.Engine.Rendering.Renderers
             OutputTexture.Load();*/
         }
 
+        protected override void Resize(Resolution resolution)
+        {
+            //OutputTexture!.Resize(resolution.Width, resolution.Height, 0u);
+        }
+
+        private static ViewQuadVertex GetTestVertex() => new(
+            Position: new Vector3f(50f, 50f, 0f),
+            BorderThickness: 20f,
+            Size: new Vector2f(200f, 100f),
+            CornerRadius: new Vector2f(12f, 12f),
+            Color: Color4.Green,
+            BorderColor: Color4.Red//,
+            //SelectionID: Color4.Plum
+        );
+
         protected override void LoadBuffers(GL gl)
         {
+            //var clearColor = Color4.Purple;
+            //gl.ClearColor(clearColor.R, clearColor.G, clearColor.B, clearColor.A);
+
             _vertexArray = new VertexArray<ViewQuadVertex>(gl);
             _vertexBuffer = new VertexBuffer<ViewQuadVertex>(gl);
             //_frameBuffer = new(gl);
@@ -61,17 +79,9 @@ namespace Monarch.Engine.Rendering.Renderers
             _vertexBuffer.Bind();
             _vertexArray.Load();
             _vertexBuffer.Unbind();
-        }
 
-        protected override void Resize(Resolution resolution)
-        {
-            //OutputTexture!.Resize(resolution.Width, resolution.Height, 0u);
-        }
-
-        public void SetVertices(IEnumerable<ViewQuadVertex> vertices)
-        {
             _vertexBuffer!.Clear();
-            _vertexBuffer!.AddVertices(vertices);
+            _vertexBuffer!.AddVertex(GetTestVertex());
         }
 
         public void Render(GL gl)
@@ -81,6 +91,9 @@ namespace Monarch.Engine.Rendering.Renderers
 
             gl.Disable(EnableCap.DepthTest);
             gl.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);*/
+            /*gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            gl.Viewport(0, 0, _display!.Window.Width, _display!.Window.Height);
+            gl.Disable(EnableCap.DepthTest);*/
 
             _program!.Bind();
             _program!.SetUniform("resolution", new Vector2f(_display.Resolution.Width, _display.Resolution.Height));

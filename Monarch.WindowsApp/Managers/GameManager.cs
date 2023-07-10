@@ -18,7 +18,7 @@ namespace Monarch.WindowsApp.Managers
         public void Load()
         {
             var windowOptions = WindowOptions.Default;
-            windowOptions.Size = new Vector2D<int>(800, 600);
+            windowOptions.Size = new Vector2D<int>(1600, 1000);
             windowOptions.Title = "Title";
             windowOptions.ShouldSwapAutomatically = true;
             windowOptions.IsContextControlDisabled = false;
@@ -50,6 +50,10 @@ namespace Monarch.WindowsApp.Managers
                 if (key == Key.Escape)
                 {
                     _window?.Close();
+                }
+                else if (key == Key.P)
+                {
+                    _renderManager?.TakeScreenshot();
                 }
             };
 

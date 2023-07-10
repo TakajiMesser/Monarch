@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Monarch.Engine.Maths
 {
-    [StructLayout(LayoutKind.Explicit)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct Vector2f : IEquatable<Vector2f>
     {
         public Vector2f(float x, float y)
@@ -12,13 +12,8 @@ namespace Monarch.Engine.Maths
             Y = y;
         }
 
-        [FieldOffset(0)]
-        public float X;
-        //public float X { get; set; }
-
-        [FieldOffset(4)]
-        public float Y;
-        //public float Y { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
 
         public bool IsReal => X.IsReal() && Y.IsReal();
 

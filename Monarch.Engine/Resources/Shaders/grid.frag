@@ -1,11 +1,10 @@
 #version 440
 
-in vec2 vPosition;
+layout(location = 0) in vec4 fColor;
 
-out vec2 fUV;
+layout(location = 0) out vec4 color;
 
 void main()
 {
-    fUV = vec2((vPosition.x + 1.0) * 0.5, (vPosition.y + 1.0) * 0.5);
-	gl_Position = vec4(vPosition.x, vPosition.y, 0.0, 1.0);
+    color = fColor;
 }

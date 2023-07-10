@@ -126,9 +126,9 @@ namespace Monarch.Engine.Rendering.OpenGL.Shaders
 
         private void SetMatrix4Uniform(int location, ref Matrix4 matrix)
         {
-            //GL.UniformMatrix4(location, 1, false, matrix.Values);
+            _gl.UniformMatrix4(location, 1, false, matrix.Values);
 
-            unsafe
+            /*unsafe
             {
                 fixed (float* matrix_ptr = &matrix.Values[0])
                 {
@@ -138,8 +138,8 @@ namespace Monarch.Engine.Rendering.OpenGL.Shaders
                 /*fixed (float* matrix_ptr = &matrix.Row0.X)
                 {
                     GL.UniformMatrix4(location, 1, false, matrix_ptr);
-                }*/
-            }
+                }*
+            }*/
         }
 
         public void SetUniform(string name, Matrix4 matrix)

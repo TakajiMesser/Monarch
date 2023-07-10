@@ -5,17 +5,17 @@
 
 //uniform sampler2D textureSampler;
 
-/*in vec4 fColor;
+in vec4 fColor;
 in vec2 fCornerRadius;
 in vec2 fBorderThickness;
 in vec4 fBorderColor;
-in vec2 fUV;*/
+in vec2 fUV;
 
 out vec4 color;
 
 void main()
 {
-	/*if (fUV.x < fCornerRadius.x && fUV.y < fCornerRadius.y) {
+	if (fUV.x < fCornerRadius.x && fUV.y < fCornerRadius.y) {
 		// Bottom Left -> X and Y are BOTH flipped
 		float x = fCornerRadius.x - fUV.x;
 		float minY = fCornerRadius.y - fCornerRadius.y * sin(acos(x / fCornerRadius.x));
@@ -112,11 +112,5 @@ void main()
 	}
 	else {
 		color = fColor;
-	}*/
-
-	//color = fColor;
-	//color = texture(textureSampler, fUV);
-	//color = vec4(1.0, 0.0, 0.0, 1.0);
-	//color = vec4(1.0, 1.0, 0.0, fColor.w);
-	color = vec4(1.0, 0.0, 0.0, 1.0);
+	}
 }

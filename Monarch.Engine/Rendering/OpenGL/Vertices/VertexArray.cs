@@ -47,17 +47,36 @@ namespace Monarch.Engine.Rendering.OpenGL.Vertices
                     new VertexAttribute("vTextureCoords", 2, VertexAttribPointerType.Float, 16, 8)
                 };
             }
+            else if (typeof(TVertex) == typeof(GridVertex))
+            {
+                return new[]
+                {
+                    new VertexAttribute("vPosition", 3, VertexAttribPointerType.Float, 48, 0),
+                    new VertexAttribute("vBorderThickness", 1, VertexAttribPointerType.Float, 48, 12),
+                    new VertexAttribute("vInnerColor", 4, VertexAttribPointerType.Float, 48, 16),
+                    new VertexAttribute("vBorderColor", 4, VertexAttribPointerType.Float, 48, 32)
+                };
+            }
+            else if (typeof(TVertex) == typeof(TextVertex))
+            {
+                return new[]
+                {
+                    new VertexAttribute("vPosition", 2, VertexAttribPointerType.Float, 32, 0),
+                    new VertexAttribute("vTextureCoords", 2, VertexAttribPointerType.Float, 32, 8),
+                    new VertexAttribute("vTextColor", 4, VertexAttribPointerType.Float, 32, 16)
+                };
+            }
             else if (typeof(TVertex) == typeof(ViewQuadVertex))
             {
                 return new[]
                 {
-                    new VertexAttribute("vPosition", 3, VertexAttribPointerType.Float, 12, 0)
-                    /*new VertexAttribute("vPosition", 3, VertexAttribPointerType.Float, 64, 0),
+                    //new VertexAttribute("vPosition", 3, VertexAttribPointerType.Float, 12, 0)
+                    new VertexAttribute("vPosition", 3, VertexAttribPointerType.Float, 64, 0),
                     new VertexAttribute("vBorderThickness", 1, VertexAttribPointerType.Float, 64, 12),
                     new VertexAttribute("vSize", 2, VertexAttribPointerType.Float, 64, 16),
                     new VertexAttribute("vCornerRadius", 2, VertexAttribPointerType.Float, 64, 24),
                     new VertexAttribute("vColor", 4, VertexAttribPointerType.Float, 64, 32),
-                    new VertexAttribute("vBorderColor", 4, VertexAttribPointerType.Float, 64, 48),*/
+                    new VertexAttribute("vBorderColor", 4, VertexAttribPointerType.Float, 64, 48)
                 };
             }
             else

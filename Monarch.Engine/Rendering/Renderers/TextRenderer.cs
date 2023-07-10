@@ -14,8 +14,8 @@ namespace Monarch.Engine.Rendering.Renderers
     public class TextRenderer : Renderer
     {
         private ShaderProgram? _program;
-        private VertexArray<TexturedVertex2D>? _vertexArray;
-        private VertexBuffer<TexturedVertex2D>? _vertexBuffer;
+        private VertexArray<TextVertex>? _vertexArray;
+        private VertexBuffer<TextVertex>? _vertexBuffer;
         //private FrameBuffer? _frameBuffer;
 
         public TextRenderer(Display display) : base(display) { }
@@ -51,8 +51,8 @@ namespace Monarch.Engine.Rendering.Renderers
 
         protected override void LoadBuffers(GL gl)
         {
-            _vertexArray = new VertexArray<TexturedVertex2D>(gl);
-            _vertexBuffer = new VertexBuffer<TexturedVertex2D>(gl);
+            _vertexArray = new VertexArray<TextVertex>(gl);
+            _vertexBuffer = new VertexBuffer<TextVertex>(gl);
             /*_frameBuffer = new(gl);
 
             _frameBuffer.Add(FramebufferAttachment.ColorAttachment0, OutputTexture);
@@ -69,27 +69,6 @@ namespace Monarch.Engine.Rendering.Renderers
             //OutputTexture.Resize(resolution.Width, resolution.Height, 0u);
         }
 
-        public void Render(GL gl, Texture texture)
-        {
-            if (texture.Target != TextureTarget.Texture2D) throw new ArgumentException("Cannot handle texture target " + texture.Target, nameof(texture));
-
-            //gl.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
-            //gl.Clear(ClearBufferMask.ColorBufferBit);
-            //gl.Viewport(0, 0, _display.Resolution.Width, _display.Resolution.Height);
-
-            _program!.Bind();
-            _program!.BindTexture(texture, "textureSampler", 0);
-
-            _vertexArray!.Bind();
-            _vertexBuffer!.Bind();
-
-            _vertexBuffer!.Buffer();
-            _vertexBuffer!.DrawTriangleStrips();
-
-            _vertexArray!.Unbind();
-            _vertexBuffer!.Unbind();
-        }
-
         public void RenderText(
             GL gl,
             Font font,
@@ -103,8 +82,8 @@ namespace Monarch.Engine.Rendering.Renderers
             gl.Enable(EnableCap.Blend);
             gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            //gl.Disable(EnableCap.DepthTest);
-            //gl.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
+            gl.Disable(EnableCap.DepthTest);
+            gl.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
 
             var uStep = (float)font.GlyphWidth / texture.Width;
             var vStep = (float)font.GlyphHeight / texture.Height;
@@ -113,24 +92,22 @@ namespace Monarch.Engine.Rendering.Renderers
             var height = (int)(font.GlyphHeight * fontScale);
 
             var initialX = x;
-
             _vertexBuffer!.Clear();
+
             for (var i = 0; i < text.Length; i++)
             {
                 char character = text[i];
+                var index = character - font.StartCharacter;
 
-                var u = (character % font.GlyphsPerLine) * uStep;
-                var v = (character / font.GlyphsPerLine) * vStep;
+                var u = index % font.GlyphsPerLine * uStep;
+                var v = index / font.GlyphsPerLine * vStep;
 
                 if (wordWrap && x + width > _display!.Window.Width)
                 {
                     x = initialX;
-                    y += height + font.YSpacing;
+                    y += height;
                 }
 
-                // SHADER ORDER   - TL, BL, TR, BR
-                // Position Order - TR, TL, BL, BR
-                // Texture Order  - BR, BL, TL, TR
                 var ptr = new Vector2f(x + width, y + height);
                 var ptl = new Vector2f(x, y + height);
                 var pbl = new Vector2f(x, y);
@@ -141,25 +118,21 @@ namespace Monarch.Engine.Rendering.Renderers
                 var ttl = new Vector2f(u, v + vStep);
                 var ttr = new Vector2f(u + uStep, v + vStep);
 
-                _vertexBuffer!.AddVertices(new List<TexturedVertex2D>()
+                var textColor = Color4.White;
+                _vertexBuffer!.AddVertices(new[]
                 {
-                    new TexturedVertex2D(ptr, ttr),
-                    new TexturedVertex2D(ptl, ttl),
-                    new TexturedVertex2D(pbr, tbr),
-                    new TexturedVertex2D(pbl, tbl)
+                    new TextVertex(ptl, ttl, textColor),
+                    new TextVertex(pbl, tbl, textColor),
+                    new TextVertex(ptr, ttr, textColor),
+                    new TextVertex(pbr, tbr, textColor),
                 });
 
-                /*_vertexBuffer.AddVertex(new TextureVertex2D(new Vector2(x + width, y + height), new Vector2(u + uStep, v)));
-                _vertexBuffer.AddVertex(new TextureVertex2D(new Vector2(x, y + height), new Vector2(u, v)));
-                _vertexBuffer.AddVertex(new TextureVertex2D(new Vector2(x, y), new Vector2(u, v + vStep)));
-                _vertexBuffer.AddVertex(new TextureVertex2D(new Vector2(x + width, y), new Vector2(u + uStep, v + vStep)));*/
-
-                x += font.XSpacing + 20;
+                x += width;
             }
             
             _program!.Bind();
             _program!.BindTexture(texture, "textureSampler", 0);
-            _program!.SetUniform("halfResolution", new Vector2f(_display!.Window.Width / 2f, _display!.Window.Height / 2f));
+            _program!.SetUniform("halfResolution", new Vector2f(_display!.Resolution.Width / 2f, _display!.Resolution.Height / 2f));
 
             _vertexArray!.Bind();
             _vertexBuffer!.Bind();

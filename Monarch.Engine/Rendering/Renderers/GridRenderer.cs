@@ -6,33 +6,34 @@ using Monarch.Engine.Rendering.OpenGL.Shaders;
 using Monarch.Engine.Rendering.OpenGL.Vertices;
 using Monarch.Engine.Rendering.Vertices;
 using Silk.NET.OpenGL;
-using Texture = Monarch.Engine.Rendering.OpenGL.Textures.Texture;
+using SpiceEngine.Core.Utilities;
 
 namespace Monarch.Engine.Rendering.Renderers
 {
     public class GridRenderer : Renderer
     {
         private ShaderProgram? _program;
-        private VertexArray<Vertex2D>? _vertexArray;
-        private VertexBuffer<Vertex2D>? _vertexBuffer;
+        private VertexArray<GridVertex>? _vertexArray;
+        private VertexBuffer<GridVertex>? _vertexBuffer;
 
         public GridRenderer(Display display) : base(display) { }
 
-        public Texture? OutputTexture { get; private set; }
+        //public Texture? OutputTexture { get; private set; }
 
         protected override void LoadPrograms(GL gl)
         {
             _program = new(gl, new[]
             {
-                new ShaderDefinition(ShaderType.VertexShader, Resources.screen_vert),
-                new ShaderDefinition(ShaderType.FragmentShader, Resources.screen_frag)
+                new ShaderDefinition(ShaderType.VertexShader, Resources.grid_vert),
+                new ShaderDefinition(ShaderType.GeometryShader, Resources.grid_geom),
+                new ShaderDefinition(ShaderType.FragmentShader, Resources.grid_frag)
             });
             _program.Load();
         }
 
         protected override void LoadTextures(GL gl)
         {
-            OutputTexture = new(gl, _display.Resolution.Width, _display.Resolution.Height, 0u)
+            /*OutputTexture = new(gl, _display.Resolution.Width, _display.Resolution.Height, 0u)
             {
                 Target = TextureTarget.Texture2D,
                 EnableMipMap = false,
@@ -44,13 +45,13 @@ namespace Monarch.Engine.Rendering.Renderers
                 MagFilter = TextureMagFilter.Linear,
                 WrapMode = TextureWrapMode.ClampToBorder
             };
-            OutputTexture.Load();
+            OutputTexture.Load();*/
         }
 
         protected override void LoadBuffers(GL gl)
         {
-            _vertexArray = new VertexArray<Vertex2D>(gl);
-            _vertexBuffer = new VertexBuffer<Vertex2D>(gl);
+            _vertexArray = new VertexArray<GridVertex>(gl);
+            _vertexBuffer = new VertexBuffer<GridVertex>(gl);
 
             _vertexBuffer.Load();
             _vertexBuffer.Bind();
@@ -58,28 +59,39 @@ namespace Monarch.Engine.Rendering.Renderers
             _vertexBuffer.Unbind();
 
             _vertexBuffer.AddVertices(
-                new Vertex2D(new Vector2f(1f, 1f)),
-                new Vertex2D(new Vector2f(-1f, 1f)),
-                new Vertex2D(new Vector2f(1f, -1f)),
-                new Vertex2D(new Vector2f(-1f, -1f)));
+                new GridVertex(Vector3f.Zero, 0.05f, Color4.Blue, Color4.Brown)
+                );
         }
 
-        public void Render(GL gl, Texture texture)
+        public void Render(GL gl)
         {
-            if (texture.Target != TextureTarget.Texture2D) throw new ArgumentException("Cannot handle texture target " + texture.Target, nameof(texture));
+            //if (texture.Target != TextureTarget.Texture2D) throw new ArgumentException("Cannot handle texture target " + texture.Target, nameof(texture));
 
-            gl.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
-            gl.Clear(ClearBufferMask.ColorBufferBit);
-            gl.Viewport(0, 0, _display.Resolution.Width, _display.Resolution.Height);
+            //gl.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
+            //gl.Clear(ClearBufferMask.ColorBufferBit);
+            //gl.Viewport(0, 0, _display.Resolution.Width, _display.Resolution.Height);
 
             _program!.Bind();
-            _program!.BindTexture(texture, "textureSampler", 0);
+            //_program!.BindTexture(texture, "textureSampler", 0);
+
+            var cameraPosition = new Vector3f(0f, 0f, 20f);
+            _program!.SetUniform("modelMatrix", Matrix4.Identity);
+            _program!.SetUniform("viewMatrix", Matrix4.LookAt(
+                eye: cameraPosition,//Vector3f.Zero,
+                target: cameraPosition - Vector3f.UnitZ,
+                up: cameraPosition + Vector3f.UnitY)
+                );
+            _program!.SetUniform("projectionMatrix", Matrix4.CreatePerspectiveFieldOfView(UnitConversions.ToRadians(45f), 1f, 0.1f, 1000f));
+
+            var radius = 0.2f;
+            var apothem = (float)Math.Sqrt(3.0) * 0.5f * radius;
+            _program!.SetUniform("radius", radius);
+            _program!.SetUniform("apothem", apothem);
 
             _vertexArray!.Bind();
             _vertexBuffer!.Bind();
-
             _vertexBuffer!.Buffer();
-            _vertexBuffer!.DrawTriangleStrips();
+            _vertexBuffer!.DrawPoints();
 
             _vertexArray!.Unbind();
             _vertexBuffer!.Unbind();

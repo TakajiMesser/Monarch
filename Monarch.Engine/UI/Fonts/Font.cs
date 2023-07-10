@@ -3,11 +3,12 @@
     // For now, we are treating all fonts as monospaced
     public record struct Font(
         string FilePath,
-        int Size,
-        int GlyphsPerLine = 16,
-        int GlyphLineCount = 16,
-        int GlyphWidth = 24,
-        int GlyphHeight = 32,
-        int XSpacing = 4,
-        int YSpacing = 5);
+        float Size = 16f,
+        int StartCharacter = 32,
+        int EndCharacter = 126,
+        int GlyphsPerLine = 12,
+        int GlyphLineCount = 12,
+        int GlyphWidth = 32,
+        int GlyphHeight = 32
+        );
 }

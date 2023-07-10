@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Monarch.Engine.Maths
 {
-    [StructLayout(LayoutKind.Explicit)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct Color4 : IEquatable<Color4>
     {
         public Color4(byte r, byte g, byte b, byte a) : this(r / (float)byte.MaxValue, g / (float)byte.MaxValue, b / (float)byte.MaxValue, a / (float)byte.MaxValue) { }
@@ -15,21 +15,10 @@ namespace Monarch.Engine.Maths
             A = a;
         }
 
-        [FieldOffset(0)]
-        public float R;
-        //public float R { get; set; }
-
-        [FieldOffset(4)]
-        public float G;
-        //public float G { get; set; }
-
-        [FieldOffset(8)]
-        public float B;
-        //public float B { get; set; }
-
-        [FieldOffset(12)]
-        public float A;
-        //public float A { get; set; }
+        public float R { get; set; }
+        public float G { get; set; }
+        public float B { get; set; }
+        public float A { get; set; }
 
         public bool IsReal => R.IsReal() && G.IsReal() && B.IsReal() && A.IsReal();
 

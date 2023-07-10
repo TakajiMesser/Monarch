@@ -1,20 +1,17 @@
 ﻿using Monarch.Engine.Rendering.Vertices;
 using Silk.NET.OpenGL;
 using SpiceEngine.Core.Utilities;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Monarch.Engine.Rendering.OpenGL.Buffers
 {
     public class VertexBuffer<T> : OpenGLObject where T : struct, IVertex
     {
         private readonly int _vertexSize;
-        private readonly List<T> _vertices = new();
+        private T[]? _vertices;
 
         public VertexBuffer(GL gl) : base(gl) => _vertexSize = UnitConversions.SizeOf(typeof(T));
 
-        public int Count => _vertices.Count;
+        public int Count => _vertices?.Length ?? 0;
 
         protected override uint Create() => _gl.GenBuffer();
         protected override void Delete() => _gl.DeleteBuffer(Handle);
@@ -22,17 +19,48 @@ namespace Monarch.Engine.Rendering.OpenGL.Buffers
         public override void Bind() => _gl.BindBuffer(BufferTargetARB.ArrayBuffer, Handle);
         public override void Unbind() => _gl.BindBuffer(BufferTargetARB.ArrayBuffer, 0);
 
-        public void AddVertex(T vertex) => _vertices.Add(vertex);
-        public void AddVertices(params T[] vertices) => _vertices.AddRange(vertices);
-        public void AddVertices(IEnumerable<T> vertices) => _vertices.AddRange(vertices);
+        public void AddVertex(T vertex)
+        {
+            var oldVertices = _vertices;
+            var newVertices = new T[Count + 1];
 
-        public void InsertVertex(int index, T vertex) => _vertices.Insert(index, vertex);
+            if (oldVertices != null)
+            {
+                Array.Copy(oldVertices, newVertices, Count);
+            }
 
-        public void SetVertex(int index, T vertex) => _vertices[index] = vertex;
+            newVertices[Count] = vertex;
+            _vertices = newVertices;
+        }
 
-        public T GetVertex(int index) => _vertices[index];
+        public void AddVertices(params T[] vertices)
+        {
+            var oldVertices = _vertices;
+            var newVertices = new T[Count + vertices.Length];
 
-        public void Clear() => _vertices.Clear();
+            if (oldVertices != null)
+            {
+                Array.Copy(oldVertices, newVertices, Count);
+            }
+
+            for (var i = 0; i < vertices.Length; i++)
+            {
+                newVertices[Count + i] = vertices[i];
+            }
+
+            _vertices = newVertices;
+        }
+
+        //public void AddVertices(params T[] vertices) => _vertices.AddRange(vertices);
+        //public void AddVertices(IEnumerable<T> vertices) => _vertices.AddRange(vertices);
+
+        //public void InsertVertex(int index, T vertex) => _vertices.Insert(index, vertex);
+
+        //public void SetVertex(int index, T vertex) => _vertices[index] = vertex;
+
+        //public T GetVertex(int index) => _vertices[index];
+
+        public void Clear() => _vertices = null;
 
         public void Buffer()
         {
@@ -50,7 +78,7 @@ namespace Monarch.Engine.Rendering.OpenGL.Buffers
                         BufferUsageARB.StaticDraw);
                 }*/
 
-                var itemArray = _vertices.ToArray();
+                /*var itemArray = _vertices.ToArray();
                 var handle = GCHandle.Alloc(itemArray, GCHandleType.Pinned);
 
                 try
@@ -60,6 +88,16 @@ namespace Monarch.Engine.Rendering.OpenGL.Buffers
                 finally
                 {
                     handle.Free();
+                }*/
+
+                var vertices = _vertices;
+
+                if (vertices != null)
+                {
+                    fixed (void* ptr = vertices)
+                    {
+                        _gl.BufferData(BufferTargetARB.ArrayBuffer, (nuint)(vertices.Length * sizeof(T)), ptr, BufferUsageARB.StaticDraw);
+                    }
                 }
 
                 /*fixed (void* itemsPtr = itemArray)
@@ -74,12 +112,12 @@ namespace Monarch.Engine.Rendering.OpenGL.Buffers
             }
         }
 
-        public void DrawPoints() => _gl.DrawArrays(PrimitiveType.Points, 0, (uint)_vertices.Count);
+        public void DrawPoints() => _gl.DrawArrays(PrimitiveType.Points, 0, (uint)(_vertices?.Length ?? 0));
 
-        public void DrawTriangles() => _gl.DrawArrays(PrimitiveType.Triangles, 0, (uint)_vertices.Count);
+        public void DrawTriangles() => _gl.DrawArrays(PrimitiveType.Triangles, 0, (uint)(_vertices?.Length ?? 0));
 
-        public void DrawTriangleStrips() => _gl.DrawArrays(PrimitiveType.TriangleStrip, 0, (uint)_vertices.Count);
+        public void DrawTriangleStrips() => _gl.DrawArrays(PrimitiveType.TriangleStrip, 0, (uint)(_vertices?.Length ?? 0));
 
-        public void DrawQuads() => _gl.DrawArrays(PrimitiveType.Quads, 0, (uint)_vertices.Count);
+        public void DrawQuads() => _gl.DrawArrays(PrimitiveType.Quads, 0, (uint)(_vertices?.Length ?? 0));
     }
 }

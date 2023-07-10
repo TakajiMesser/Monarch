@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Monarch.Engine.Maths
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct Vector3f : IEquatable<Vector3f>
     {
         public Vector3f(float x, float y, float z)
@@ -13,17 +13,9 @@ namespace Monarch.Engine.Maths
             Z = z;
         }
 
-        //[FieldOffset(0)]
-        public float X;
-        //public float X { get; set; }
-
-        //[FieldOffset(4)]
-        public float Y;
-        //public float Y { get; set; }
-
-        //[FieldOffset(8)]
-        public float Z;
-        //public float Z { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
 
         public Vector2f Xy
         {

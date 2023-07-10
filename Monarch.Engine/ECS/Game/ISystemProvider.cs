@@ -1,10 +1,13 @@
 ﻿using Monarch.Engine.ECS.Components;
 using Monarch.Engine.ECS.Entities;
+using Monarch.Engine.ECS.Systems;
 
-namespace Monarch.Engine.ECS.Systems
+namespace Monarch.Engine.ECS.Game
 {
     public interface ISystemProvider
     {
+        ISimulate? Simulator { get; }
+        IRender? Renderer { get; }
         IEntityProvider? EntityProvider { get; }
 
         bool HasComponentProvider<T>() where T : IComponent;

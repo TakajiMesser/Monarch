@@ -1,4 +1,6 @@
-﻿namespace Monarch.Engine.ECS.Systems
+﻿using Monarch.Engine.ECS.Game;
+
+namespace Monarch.Engine.ECS.Systems
 {
     public abstract class GameSystem : IGameSystem
     {
@@ -10,6 +12,6 @@
 
         public virtual void Start() { }
 
-        public abstract void Update(float deltaTime);
+        public abstract void Update(double deltaTime);
     }
 }

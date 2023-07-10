@@ -26,4 +26,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HID\Outputs\" />
+  </ItemGroup>
+
 </Project>

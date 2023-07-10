@@ -5,11 +5,10 @@
         private Resolution _resolution;
         private Resolution _window;
 
-        public Display(uint width, uint height, bool isFullScreen)
+        public Display(uint width, uint height)
         {
             _resolution = new(width, height);
             _window = new(width, height);
-            IsFullscreen = isFullScreen;
         }
 
         public Resolution Resolution

@@ -3,6 +3,7 @@ using Monarch.Engine.Maths;
 using Monarch.Engine.Rendering.OpenGL.Buffers;
 using Monarch.Engine.Rendering.Renderers;
 using Silk.NET.OpenGL;
+using Silk.NET.Windowing;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Font = Monarch.Engine.UI.Fonts.Font;
@@ -10,7 +11,7 @@ using Texture = Monarch.Engine.Rendering.OpenGL.Textures.Texture;
 
 namespace Monarch.WindowsApp.Managers
 {
-    internal class RenderManager
+    internal class RenderManager : Monarch.Engine.ECS.Game.RenderManager
     {
         private GL? _gl;
         private Display? _display;
@@ -27,40 +28,48 @@ namespace Monarch.WindowsApp.Managers
         private Texture? _worldTexture;
         private FrameBuffer? _worldFrameBuffer;
 
-        public void Load(GL gl, Display display)
+        public override void SetView(IView view)
         {
-            _gl = gl;
-            _display = display;
+            _gl = view.CreateOpenGL();
+            _display = new Display((uint)view!.Size.X, (uint)view!.Size.Y);
 
+            view.Resize += (size) =>
+            {
+                _display.Window = new Resolution((uint)size.X, (uint)size.Y);
+            };
+        }
+
+        public override void Load()
+        {
             var clearColor = Color4.Purple;
-            _gl.ClearColor(clearColor.R, clearColor.G, clearColor.B, clearColor.A);
+            _gl!.ClearColor(clearColor.R, clearColor.G, clearColor.B, clearColor.A);
 
-            _gridRenderer = new(display);
-            _gridRenderer.Load(gl);
+            _gridRenderer = new(_display!);
+            _gridRenderer.Load(_gl!);
 
-            _screenRenderer = new(display);
-            _screenRenderer.Load(gl);
+            _screenRenderer = new(_display!);
+            _screenRenderer.Load(_gl!);
 
-            _uiRenderer = new(display);
-            _uiRenderer.Load(gl);
+            _uiRenderer = new(_display!);
+            _uiRenderer.Load(_gl!);
 
-            _textRenderer = new(display);
-            _textRenderer.Load(gl);
-            LoadFontTexture(gl);
-            SaveTextureToFile(gl, _fontTexture!, "Font-texture.png");
+            _textRenderer = new(_display!);
+            _textRenderer.Load(_gl!);
+            LoadFontTexture(_gl!);
+            SaveTextureToFile(_gl!, _fontTexture!, "Font-texture.png");
 
-            _testRenderer = new(display);
-            _testRenderer.Load(gl);
+            _testRenderer = new(_display!);
+            _testRenderer.Load(_gl!);
             _testRenderer.SetVertex(0.0f, 0.0f, 0.0f);
 
-            _worldTexture = new Texture(gl, display.Resolution.Width, display.Resolution.Height, 0u)
+            _worldTexture = new Texture(_gl!, _display!.Resolution.Width, _display!.Resolution.Height, 0u)
             {
                 Target = TextureTarget.Texture2D,
                 EnableMipMap = false,
                 EnableAnisotropy = false,
                 InternalFormat = InternalFormat.Rgba16f,
                 PixelFormat = Silk.NET.OpenGL.PixelFormat.Rgba,
-                PixelType = PixelType.Float,
+                PixelType = Silk.NET.OpenGL.PixelType.Float,
                 MinFilter = TextureMinFilter.Linear,
                 MagFilter = TextureMagFilter.Linear,
                 WrapMode = TextureWrapMode.ClampToBorder
@@ -70,9 +79,14 @@ namespace Monarch.WindowsApp.Managers
             {
                 _worldTexture.Resize(args.Resolution.Width, args.Resolution.Height, 0u);
             };
-            _worldFrameBuffer = new(gl);
+            _worldFrameBuffer = new(_gl!);
             _worldFrameBuffer.Add(FramebufferAttachment.ColorAttachment0, _worldTexture!);
             _worldFrameBuffer.Load();
+        }
+
+        public override void Start()
+        {
+
         }
 
         /*private const double CLEAR_THRESHOLD = 2.0;
@@ -80,7 +94,7 @@ namespace Monarch.WindowsApp.Managers
         private double _clearTime = 0.0;
         private int _clearIndex = 0;*/
 
-        public void Render(double deltaTime)
+        public override void Render(double deltaTime)
         {
             /*_clearTime += deltaTime;
             if (_clearTime >= CLEAR_THRESHOLD)
@@ -121,7 +135,7 @@ namespace Monarch.WindowsApp.Managers
             //_testRenderer!.Render(_gl);
         }
 
-        public void Close()
+        public override void Close()
         {
             _gridRenderer?.Dispose();
             _screenRenderer?.Dispose();
@@ -204,12 +218,12 @@ namespace Monarch.WindowsApp.Managers
                 case System.Drawing.Imaging.PixelFormat.Format24bppRgb:
                     _fontTexture.InternalFormat = InternalFormat.Rgb8;
                     _fontTexture.PixelFormat = Silk.NET.OpenGL.PixelFormat.Bgr;
-                    _fontTexture.PixelType = PixelType.UnsignedByte;
+                    _fontTexture.PixelType = Silk.NET.OpenGL.PixelType.UnsignedByte;
                     break;
                 case System.Drawing.Imaging.PixelFormat.Format32bppArgb:
                     _fontTexture.InternalFormat = InternalFormat.Rgba;
                     _fontTexture.PixelFormat = Silk.NET.OpenGL.PixelFormat.Bgra;
-                    _fontTexture.PixelType = PixelType.UnsignedByte;
+                    _fontTexture.PixelType = Silk.NET.OpenGL.PixelType.UnsignedByte;
                     break;
             }
 
@@ -219,7 +233,7 @@ namespace Monarch.WindowsApp.Managers
             bitmap.Dispose();
         }
 
-        public void TakeScreenshot()
+        public override void TakeScreenshot()
         {
             /*var width = (int)_display!.Resolution.Width;
             var height = (int)_display!.Resolution.Height;
@@ -263,7 +277,7 @@ namespace Monarch.WindowsApp.Managers
 
             unsafe
             {
-                gl.ReadPixels(0, 0, texture.Width, texture.Height, Silk.NET.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0.ToPointer());
+                gl.ReadPixels(0, 0, texture.Width, texture.Height, Silk.NET.OpenGL.PixelFormat.Bgra, Silk.NET.OpenGL.PixelType.UnsignedByte, data.Scan0.ToPointer());
             }
             
             gl.Finish();

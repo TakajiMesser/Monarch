@@ -1,7 +1,8 @@
 ﻿using Monarch.Engine.ECS.Components;
 using Monarch.Engine.ECS.Entities;
+using Monarch.Engine.ECS.Systems;
 
-namespace Monarch.Engine.ECS.Systems
+namespace Monarch.Engine.ECS.Game
 {
     public class SystemManager : ISystemProvider
     {
@@ -10,7 +11,9 @@ namespace Monarch.Engine.ECS.Systems
 
         protected List<IGameSystem> _gameSystems = new();
 
-        public IEntityProvider? EntityProvider { get; set; }
+        public ISimulate? Simulator { get; private set; }
+        public IRender? Renderer { get; private set; }
+        public IEntityProvider? EntityProvider { get; private set; }
 
         public bool HasComponentProvider<T>() where T : IComponent => _componentProviderByType.ContainsKey(typeof(T));
         public bool HasGameSystem<T>() where T : IGameSystem => _gameSystemByType.ContainsKey(typeof(T));
@@ -49,6 +52,18 @@ namespace Monarch.Engine.ECS.Systems
             return provider != null
                 ? provider.GetComponentOrDefault(entityID)
                 : default;
+        }
+
+        public void SetSimulator(ISimulate simulator)
+        {
+            Simulator = simulator;
+            Simulator.SetSystemProvider(this);
+        }
+
+        public void SetRenderer(IRender renderer)
+        {
+            Renderer = renderer;
+            Renderer.SetSystemProvider(this);
         }
 
         public virtual void AddComponentProvider<T>(IComponentProvider componentProvider) where T : IComponent

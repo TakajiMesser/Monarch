@@ -59,7 +59,10 @@ namespace Monarch.Engine.Rendering.Renderers
             _vertexBuffer.Unbind();
 
             _vertexBuffer.AddVertices(
-                new GridVertex(Vector3f.Zero, 0.05f, Color4.Blue, Color4.Brown)
+                new GridVertex(new Vector3f(0f, 0f, 0f), 0.05f, Color4.YellowGreen, Color4.Brown),
+                new GridVertex(new Vector3f(0f, -1f, 1f), 0.02f, Color4.YellowGreen, Color4.Red),
+                new GridVertex(new Vector3f(1f, 0f, -1f), 0.02f, Color4.YellowGreen, Color4.Green),
+                new GridVertex(new Vector3f(-1f, 1f, 0f), 0.02f, Color4.YellowGreen, Color4.Blue)
                 );
         }
 

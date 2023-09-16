@@ -4,10 +4,7 @@ using System.Transactions;
 
 namespace Monarch.Engine.ECS.Components
 {
-    public record struct CameraComponent(
-        int EntityID,
-        Vector3f Translation,
-        Vector3f LookAt,
-        Vector3f Up
+    public record struct RotationComponent(
+        Quaternion Rotation
     ) : IComponent;
 }

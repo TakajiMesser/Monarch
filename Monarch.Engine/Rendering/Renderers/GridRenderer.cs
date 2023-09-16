@@ -78,13 +78,23 @@ namespace Monarch.Engine.Rendering.Renderers
             //_program!.BindTexture(texture, "textureSampler", 0);
 
             var cameraPosition = new Vector3f(0f, 0f, 20f);
+            
             _program!.SetUniform("modelMatrix", Matrix4.Identity);
+            //_program!.SetUniform("viewMatrix", Matrix4.Identity);
+            _program!.SetUniform("projectionMatrix", Matrix4.Identity);
+
             _program!.SetUniform("viewMatrix", Matrix4.LookAt(
+                eye: Vector3f.One,
+                target: Vector3f.One,
+                up: Vector3f.One
+                ));
+
+            /*_program!.SetUniform("viewMatrix", Matrix4.LookAt(
                 eye: cameraPosition,//Vector3f.Zero,
                 target: cameraPosition - Vector3f.UnitZ,
                 up: cameraPosition + Vector3f.UnitY)
                 );
-            _program!.SetUniform("projectionMatrix", Matrix4.CreatePerspectiveFieldOfView(UnitConversions.ToRadians(45f), 1f, 0.1f, 1000f));
+            _program!.SetUniform("projectionMatrix", Matrix4.CreatePerspectiveFieldOfView(UnitConversions.ToRadians(45f), 1f, 0.1f, 1000f));*/
 
             var radius = 0.2f;
             var apothem = (float)Math.Sqrt(3.0) * 0.5f * radius;

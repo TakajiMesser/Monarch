@@ -21,18 +21,17 @@ void main()
     //gPosition = vec3(0.0, 0.0, 0.0);
     //gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
     //vec4 position = vec4(vPosition, 1.0);
-
     //float q = vPosition.x;
     //float r = vPosition.y;
     //float z = vPosition.z;
     //float u =  vPosition.x * radius  * 1.0 - vPosition.y * radius  * 0.5 - vPosition.z * radius  * 0.5;
     //float v = -vPosition.x * apothem * 0.0 - vPosition.y * apothem * 1.0 + vPosition.z * apothem * 1.0;
     
-    // Convert from Grid-Space to World-Space
+    // Convert from Grid-Space to Model-Space
     float u = (vPosition.x - vPosition.y * 0.5 - vPosition.z * 0.5) * radius;
     float v = (vPosition.z - vPosition.y) * apothem;
 
-    mat4 mvp = /*projectionMatrix * viewMatrix **/ modelMatrix;
+    mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
     vec4 position = vec4(u, v, 0.0, 1.0);
 
     gPosition = (modelMatrix * position).xyz;

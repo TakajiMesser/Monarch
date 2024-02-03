@@ -2,9 +2,7 @@
 {
     public class ArchetypeBitSet
     {
-        private readonly 
-
-        public ComponentSignature(params Type[] componentTypes) => ComponentTypes = componentTypes;
+        public ArchetypeBitSet(params Type[] componentTypes) => ComponentTypes = componentTypes;
 
         public Type[] ComponentTypes { get; }
     }

@@ -31,7 +31,7 @@ void main()
     float u = (vPosition.x - vPosition.y * 0.5 - vPosition.z * 0.5) * radius;
     float v = (vPosition.z - vPosition.y) * apothem;
 
-    mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
+    mat4 mvp = /*projectionMatrix * viewMatrix **/ modelMatrix;
     vec4 position = vec4(u, v, 0.0, 1.0);
 
     gPosition = (modelMatrix * position).xyz;

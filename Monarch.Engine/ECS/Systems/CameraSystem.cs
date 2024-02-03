@@ -4,7 +4,7 @@ using Monarch.Engine.ECS.Game;
 
 namespace Monarch.Engine.ECS.Systems
 {
-    public class CameraSystem : ComponentSystem<CameraComponent, CameraBuilder>
+    /*public class CameraSystem : ComponentSystem<CameraComponent, CameraBuilder>
     {
         public override void Load()
         {
@@ -20,5 +20,5 @@ namespace Monarch.Engine.ECS.Systems
         {
 
         }
-    }
+    }*/
 }

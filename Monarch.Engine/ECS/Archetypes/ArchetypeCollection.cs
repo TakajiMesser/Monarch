@@ -12,7 +12,7 @@
 
             if (!_queries.TryGetValue(_query, out ArchetypeQuery cachedQuery))
             {
-                _query.Matches = _archetypes.Where(a => _query.IsMatch(a)).ToList();
+                _query.Matches = _archetypes.Where(a => IsMatch(_query, a)).ToList();
                 cachedQuery = _query;
                 _queries.Add(cachedQuery);
                 _query = new();
@@ -27,11 +27,16 @@
 
             foreach (var query in _queries)
             {
-                if (query.IsMatch(archetype))
+                if (IsMatch(query, archetype))
                 {
                     query.Matches.Add(archetype);
                 }
             }
+        }
+
+        private static bool IsMatch(ArchetypeQuery query, Archetype archetype)
+        {
+            return false;
         }
     }
 }

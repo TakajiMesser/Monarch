@@ -21,15 +21,15 @@
 
         public int Count => _components.Count;
 
-        public void AddComponent(TComponent component)
+        public void AddComponent(int entityID, TComponent component)
         {
-            _indexByID.Add(component.EntityID, Count);
+            _indexByID.Add(entityID, Count);
             _components.Add(component);
         }
 
-        public void ReplaceComponent(TComponent component)
+        public void ReplaceComponent(int entityID, TComponent component)
         {
-            var index = _indexByID[component.EntityID];
+            var index = _indexByID[entityID];
             _components[index] = component;
         }
 

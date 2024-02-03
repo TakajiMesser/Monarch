@@ -8,10 +8,10 @@ namespace Monarch.Engine.ECS.Components
 
         public ComponentSignature(params Type[] componentTypes)
         {
-            _bits = new(new[]
+            /*_bits = new(new[]
                 {
                     
-                });
+                });*/
         }
 
 

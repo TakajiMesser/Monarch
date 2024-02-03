@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monarch.Engine.ECS.Processors
+namespace Monarch.WindowsApp.Entities
 {
-    public abstract class Processor
+    public class GridCell
     {
 
     }

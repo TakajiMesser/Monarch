@@ -13,13 +13,13 @@ namespace Monarch.Engine.ECS.Components
 
         public TComponent? GetComponentOrDefault(int entityID) => _components.GetComponentOrDefault(entityID);
 
-        public void AddComponent(TComponent component) => _components.AddComponent(component);
+        public void AddComponent(int entityID, TComponent component) => _components.AddComponent(entityID, component);
 
         public void LoadBuilder(int entityID, IEntityBuilder builder)
         {
             if (builder is TBuilder componentBuilder)
             {
-                AddComponent(componentBuilder.Build(entityID));
+                AddComponent(entityID, componentBuilder.Build(entityID));
             }
         }
     }

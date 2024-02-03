@@ -16,7 +16,7 @@ namespace Monarch.Engine.ECS.Systems
 
         public BitArray GetComponentSignature(params Type[] types)
         {
-            var bits = new BitArray()
+            var bits = new BitArray(0);
 
 
 
@@ -25,12 +25,12 @@ namespace Monarch.Engine.ECS.Systems
 
         public IEnumerable<Tuple<IEntity, TComponent>> GetEntities<TComponent>() where TComponent : IComponent
         {
-
+            return Enumerable.Empty<Tuple<IEntity, TComponent>>();
         }
 
         public void DoShit()
         {
-            var positionComponent = new PositionComponent();
+            /*var positionComponent = new PositionComponent();
 
             foreach (var result in GetEntities<PositionComponent>())
             {
@@ -40,7 +40,7 @@ namespace Monarch.Engine.ECS.Systems
 
 
                 position.Position += Vector3f.One;
-            }
+            }*/
         }
     }
 }

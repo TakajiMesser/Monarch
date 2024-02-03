@@ -76,13 +76,13 @@ namespace Monarch.Engine.ECS.Queries
         {
             foreach (var archetypeSignature in _archetypeSignatures)
             {
-                signature.RequiredBits
+                //signature.RequiredBits;
 
                 // TODO - Compare archetype signature against query signature
                 // If match, lookup archetype and yield return
                 var archetype = _archetypeBySignature[archetypeSignature];
 
-                
+                yield return archetype;
             }
         }
 
